@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>T • R • O • R | مدیریت شاهین (نسخه نهایی)</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00e5ff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="css/driving-dashboard.css">
+    <link rel="stylesheet" href="css/pwa-dashboard.css">
+    <link rel="stylesheet" href="css/vms-production.css">
+</head>
+<body class="bg-dark-matrix text-slate-100">
+    <div id="app" class="flex flex-col h-screen overflow-hidden">
+        <header class="flex justify-between items-center p-4 border-b border-cyan-500/20 bg-black/40 backdrop-blur-md">
+            <h1 class="text-xl font-black text-cyan-400 tracking-wider">T • R • O • R <span class="text-xs text-slate-400">v1.2.0 Final</span></h1>
+            <div id="connection-status" class="status-badge online">آنلاین</div>
+        </header>
+        <main class="flex-1 overflow-y-auto p-4 space-y-4">
+            <div class="driving-dashboard">
+                <div id="speed-display" class="speedometer-display">0</div>
+                <div class="text-center text-sm text-cyan-300">کیلومتر بر ساعت</div>
+                <div id="active-alert-box" class="dashboard-card mt-4 text-center text-amber-400 font-bold hidden">
+                    هشدار فعال: هیچ
+                </div>
+            </div>
+            <div class="pwa-diag-panel">
+                <h3 class="text-cyan-400 font-bold mb-3 border-b border-white/10 pb-2">وضعیت سلامت سیستم</h3>
+                <div class="diag-row">
+                    <span>وضعیت سرویس‌ورکر:</span>
+                    <span id="diag-sw" class="text-green-400">فعال</span>
+                </div>
+                <div class="diag-row">
+                    <span>حجم کش مصرفی:</span>
+                    <span id="diag-cache">محاسبه...</span>
+                </div>
+                <div class="diag-row">
+                    <span>نسخه پایگاه داده:</span>
+                    <span id="diag-db">v2</span>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="js/core/app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.serviceWorker.js')
+                    .then(reg => console.log('ServiceWorker registered:', reg.scope))
+                    .catch(err => console.error('ServiceWorker failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>
